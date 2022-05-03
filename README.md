@@ -1,5 +1,4 @@
-# Tree
+# Forest
 
-A Rust implementation of a (modified and simplified) version of GNU tree tool.
+A simple Rust command line program which generates a tree file structure at the current directory.
 
-Just like with GNU tree, just run `tree` to see the structure of the current directory.

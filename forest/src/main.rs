@@ -2,7 +2,7 @@ use std::env;
 use std::fs;
 use std::path;
 
-fn generate_tree(root : &path::PathBuf, prefix : &String, is_last_item : bool, result : &mut String) {
+fn generate_tree(root : &path::PathBuf, prefix : &String, is_last_item : bool) {
 
     let name =
         root
@@ -12,10 +12,10 @@ fn generate_tree(root : &path::PathBuf, prefix : &String, is_last_item : bool, r
         .unwrap();
         
     if is_last_item {
-        result.push_str(&format!("{}└──{}\n", prefix, name));
+        println!("{}└──{}", prefix, name);
     }
     else {
-        result.push_str(&format!("{}├──{}\n", prefix, name));
+        println!("{}├──{}", prefix, name);
     }
 
     if root.is_dir() {
@@ -38,7 +38,7 @@ fn generate_tree(root : &path::PathBuf, prefix : &String, is_last_item : bool, r
                 format!("{}│  ", prefix)
             };
         
-            generate_tree(&paths[i], &new_prefix, new_is_last_item, result)
+            generate_tree(&paths[i], &new_prefix, new_is_last_item);
         }
     }
 }
@@ -48,9 +48,7 @@ fn main() {
 
     match env::current_dir() {
         Ok(path) => {
-            let mut tree = String::new();
-            generate_tree(&path, &format!(""), true, &mut tree);
-            println!("{}", tree);
+            generate_tree(&path, &format!(""), true);
         },
         Err(_) => {
             println!("Failed to read the current directory.");
